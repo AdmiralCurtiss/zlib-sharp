@@ -1,14 +1,30 @@
 ﻿// port of bits and pieces of zutil.h
 
 namespace zlib_sharp {
-	internal static class zutil {
-		public static void zmemcpy(byte[] target, long target_index, byte[] source, long source_index, long count) {
+	public static class zutil {
+		public const int DEF_MEM_LEVEL = 8;
+		/* default memLevel */
+
+		public const int STORED_BLOCK = 0;
+		public const int STATIC_TREES = 1;
+		public const int DYN_TREES = 2;
+		/* The three kinds of block type */
+
+		public const int MIN_MATCH = 3;
+		public const int MAX_MATCH = 258;
+		/* The minimum and maximum match lengths */
+
+		public const int PRESET_DICT = 0x20; /* preset dictionary flag in zlib header */
+
+		public const byte OS_CODE = 0;
+
+		internal static void zmemcpy(byte[] target, long target_index, byte[] source, long source_index, long count) {
 			for (long i = 0; i < count; ++i) {
 				target[target_index + i] = source[source_index + i];
 			}
 		}
 
-		public static void zmemcpy(z_stream target, z_stream source) {
+		internal static void zmemcpy(z_stream target, z_stream source) {
 			target.input_buffer = source.input_buffer;
 			target.output_buffer = source.output_buffer;
 
@@ -22,6 +38,7 @@ namespace zlib_sharp {
 
 			target.msg = source.msg;
 			target.state = source.state;
+			target.dstate = source.dstate;
 
 			target.data_type = source.data_type;
 
@@ -29,7 +46,7 @@ namespace zlib_sharp {
 			target.reserved = source.reserved;
 		}
 
-		public static void zmemcpy(inflate_state target, inflate_state source) {
+		internal static void zmemcpy(inflate_state target, inflate_state source) {
 			target.strm = source.strm;
 			target.mode = source.mode;
 			target.last = source.last;
@@ -78,9 +95,32 @@ namespace zlib_sharp {
 			target.was = source.was;
 		}
 
-		public static uint ZSWAP32(uint q) {
+		internal static uint ZSWAP32(uint q) {
 			return ((((q) >> 24) & 0xff) + (((q) >> 8) & 0xff00) +
 					(((q) & 0xff00) << 8) + (((q) & 0xff) << 24));
+		}
+
+		private static string[] z_errmsg = new string[10] {
+			"need dictionary",     /* Z_NEED_DICT       2  */
+			"stream end",          /* Z_STREAM_END      1  */
+			"",                    /* Z_OK              0  */
+			"file error",          /* Z_ERRNO         (-1) */
+			"stream error",        /* Z_STREAM_ERROR  (-2) */
+			"data error",          /* Z_DATA_ERROR    (-3) */
+			"insufficient memory", /* Z_MEM_ERROR     (-4) */
+			"buffer error",        /* Z_BUF_ERROR     (-5) */
+			"incompatible version",/* Z_VERSION_ERROR (-6) */
+			""
+		};
+
+		public static string ERR_MSG(int err) {
+			return z_errmsg[zlib.Z_NEED_DICT - (err)];
+		}
+
+		internal static void zmemzero(byte[] target, long target_index, uint count) {
+			for (uint i = 0; i < count; ++i) {
+				target[target_index + i] = 0;
+			}
 		}
 	}
 }

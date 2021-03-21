@@ -1,7 +1,7 @@
 ﻿// port of bits and pieces of zlib.h
 
 namespace zlib_sharp {
-	internal static class zlib {
+	public static class zlib {
 		public const string ZLIB_VERSION = "1.2.11";
 		public const int ZLIB_VERNUM = 0x12b0;
 		public const int ZLIB_VER_MAJOR = 1;
@@ -73,6 +73,7 @@ namespace zlib_sharp {
 
 		public string msg;      /* last error message, NULL if no error */
 		public inflate_state state; /* not visible by applications */
+		public deflate.deflate_state dstate;
 
 		public int data_type;   /* best guess about the data type: binary or text
 		                           for deflate, or the decoding state for inflate */
