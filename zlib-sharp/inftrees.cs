@@ -28,7 +28,7 @@ namespace zlib_sharp {
 	   of the bit buffer.  val is the actual byte to output in the case
 	   of a literal, the base length or distance, or the offset from
 	   the current table to the next table.  Each entry is four bytes. */
-	public struct code {
+	internal struct code {
 		public byte op;           /* operation, extra bits, table bits */
 		public byte bits;         /* bits in this part of the code */
 		public ushort val;        /* offset in table or code value */

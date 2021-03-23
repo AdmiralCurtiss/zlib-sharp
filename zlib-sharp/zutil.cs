@@ -1,7 +1,7 @@
 ﻿// port of bits and pieces of zutil.h
 
 namespace zlib_sharp {
-	public static class zutil {
+	internal static class zutil {
 		public const int DEF_MEM_LEVEL = 8;
 		/* default memLevel */
 

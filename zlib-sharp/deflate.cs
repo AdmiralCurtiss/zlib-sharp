@@ -1,7 +1,7 @@
 ﻿// port of deflate.h and deflate.c
 
 namespace zlib_sharp {
-	public static class deflate {
+    internal static class deflate {
 /* deflate.h -- internal compression state
  * Copyright (C) 1995-2016 Jean-loup Gailly
  * For conditions of distribution and use, see copyright notice in zlib.h
@@ -54,7 +54,7 @@ public const int FINISH_STATE  = 666;    /* stream complete */
 
 
 /* Data structure describing a single value and its code string. */
-public struct ct_data {
+internal struct ct_data {
     //union {
     //    ush  freq;       /* frequency count */
     //    ush  code;       /* bit string */
@@ -77,7 +77,7 @@ public struct ct_data {
 //#define Dad  dl.dad
 //#define Len  dl.len
 
-public struct tree_desc {
+internal struct tree_desc {
     public ct_data[] dyn_tree;           /* the dynamic tree */
     public int     max_code;            /* largest code with non zero frequency */
     public trees.static_tree_desc stat_desc;  /* the corresponding static tree */
@@ -87,7 +87,7 @@ public struct tree_desc {
 //typedef Pos FAR Posf;
 //typedef unsigned IPos;
 
-public struct ushort_array_from_byte_array {
+internal struct ushort_array_from_byte_array {
     public byte[] data;
     public long offset;
 
@@ -115,7 +115,7 @@ public struct ushort_array_from_byte_array {
  * save space in the various tables. IPos is used only for parameter passing.
  */
 
-public class deflate_state {
+internal class deflate_state {
     public z_stream strm;      /* pointer back to this zlib stream */
     public int   status;        /* as the name implies */
     public byte[] pending_buf;  /* output still pending */
@@ -458,7 +458,7 @@ public const int TOO_FAR = 4096;
  * exclude worst case performance for pathological files. Better values may be
  * found for specific files.
  */
-public struct config {
+internal struct config {
     public ushort good_length; /* reduce lazy search above this match length */
     public ushort max_lazy;    /* do not perform lazy search above this match length */
     public ushort nice_length; /* quit search above this match length */

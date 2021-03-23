@@ -1,7 +1,7 @@
 ﻿// port of crc32.h and crc32.c
 
 namespace zlib_sharp {
-	public static class crc32 {
+	internal static class crc32 {
 		private static uint[] crc_table = new uint[8 * 256]
 		{
 	0x00000000U, 0x77073096U, 0xee0e612cU, 0x990951baU, 0x076dc419U,

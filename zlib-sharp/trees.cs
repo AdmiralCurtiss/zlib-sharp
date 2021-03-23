@@ -1,7 +1,7 @@
 ﻿// port of trees.h and trees.c
 
 namespace zlib_sharp {
-	public static class trees {
+    internal static class trees {
 private static deflate.ct_data[] static_ltree = new deflate.ct_data[deflate.L_CODES+2] {
 new deflate.ct_data( 12,  8), new deflate.ct_data(140,  8), new deflate.ct_data( 76,  8), new deflate.ct_data(204,  8), new deflate.ct_data( 44,  8),
 new deflate.ct_data(172,  8), new deflate.ct_data(108,  8), new deflate.ct_data(236,  8), new deflate.ct_data( 28,  8), new deflate.ct_data(156,  8),
@@ -234,7 +234,7 @@ private const int DIST_CODE_LEN = 512; /* see definition of array dist_code belo
 //#  include "trees.h"
 //#endif /* GEN_TREES_H */
 
-public class static_tree_desc {
+internal class static_tree_desc {
     public deflate.ct_data[] static_tree;  /* static tree or NULL */
     public int[] extra_bits;      /* extra bits for each code or NULL */
     public int     extra_base;          /* base index for extra_bits */

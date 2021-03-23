@@ -1,7 +1,7 @@
 ﻿// port of inflate.c's big inflate() function
 
 namespace zlib_sharp {
-    public partial class inflate {
+    internal partial class inflate {
 /* Macros for inflate(): */
 
 /* check function to use adler32() for zlib or crc32() for gzip */

@@ -1,7 +1,7 @@
 ﻿// port of uncompr.c
 
 namespace zlib_sharp {
-	public static class uncompr {
+	internal static class uncompr {
 		/* uncompr.c -- decompress a memory buffer
 		 * Copyright (C) 1995-2003, 2010, 2014, 2016 Jean-loup Gailly, Mark Adler
 		 * For conditions of distribution and use, see copyright notice in zlib.h
@@ -23,7 +23,7 @@ namespace zlib_sharp {
 		   Z_DATA_ERROR if the input data was corrupted, including if the input data is
 		   an incomplete zlib stream.
 		*/
-		private static int uncompress2(byte[] dest, ref ulong destLen, byte[] source, ref ulong sourceLen) {
+		public static int uncompress2(byte[] dest_array, long dest_index, ref ulong destLen, byte[] source_array, long source_index, ref ulong sourceLen) {
 			z_stream stream = new z_stream();
 			int err;
 			const uint max = uint.MaxValue;
@@ -36,11 +36,12 @@ namespace zlib_sharp {
 				destLen = 0;
 			} else {
 				left = 1;
-				dest = buf;
+				dest_array = buf;
+				dest_index = 0;
 			}
 
-			stream.input_buffer = source;
-			stream.next_in = 0;
+			stream.input_buffer = source_array;
+			stream.next_in = source_index;
 			stream.avail_in = 0;
 			//stream.zalloc = (alloc_func)0;
 			//stream.zfree = (free_func)0;
@@ -49,8 +50,8 @@ namespace zlib_sharp {
 			err = zlib_sharp.inflate.inflateInit_(stream, zlib.ZLIB_VERSION, z_stream._sizeof);
 			if (err != zlib_sharp.zlib.Z_OK) return err;
 
-			stream.output_buffer = dest;
-			stream.next_out = 0;
+			stream.output_buffer = dest_array;
+			stream.next_out = dest_index;
 			stream.avail_out = 0;
 
 			do {
@@ -66,7 +67,7 @@ namespace zlib_sharp {
 			} while (err == zlib_sharp.zlib.Z_OK);
 
 			sourceLen -= len + stream.avail_in;
-			if (dest != buf)
+			if (dest_array != buf)
 				destLen = stream.total_out;
 			else if (stream.total_out != 0 && err == zlib_sharp.zlib.Z_BUF_ERROR)
 				left = 1;
@@ -78,8 +79,8 @@ namespace zlib_sharp {
 				   err;
 		}
 
-		public static int uncompress(byte[] dest, ref ulong destLen, byte[] source, ulong sourceLen) {
-			return uncompress2(dest, ref destLen, source, ref sourceLen);
+		public static int uncompress(byte[] dest_array, long dest_index, ref ulong destLen, byte[] source_array, long source_index, ulong sourceLen) {
+			return uncompress2(dest_array, dest_index, ref destLen, source_array, source_index, ref sourceLen);
 		}
 	}
 }

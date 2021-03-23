@@ -1,7 +1,7 @@
 ﻿// port of inffast.c
 
 namespace zlib_sharp {
-	public static class inffast {
+    internal static class inffast {
 /* inffast.c -- fast decoding
  * Copyright (C) 1995-2017 Mark Adler
  * For conditions of distribution and use, see copyright notice in zlib.h

@@ -12,7 +12,7 @@ namespace zlib_sharp {
 	 */
 
 	/* Possible inflate modes between inflate() calls */
-	public enum inflate_mode {
+	internal enum inflate_mode {
 		HEAD = 16180,   /* i: waiting for magic header */
 		FLAGS,      /* i: waiting for method and flags (gzip) */
 		TIME,       /* i: waiting for modification time (gzip) */
@@ -77,7 +77,7 @@ namespace zlib_sharp {
 
 	/* State maintained between inflate() calls -- approximately 7K bytes, not
 	   including the allocated sliding window, which is up to 32K bytes. */
-	public class inflate_state {
+	internal class inflate_state {
 		public z_stream strm;             /* pointer back to this zlib stream */
 		public inflate_mode mode;          /* current inflate mode */
 		public int last;                   /* true if processing last block */
@@ -129,7 +129,7 @@ namespace zlib_sharp {
 	 * For conditions of distribution and use, see copyright notice in zlib.h
 	 */
 
-	public partial class inflate {
+	internal partial class inflate {
 		private static int inflateStateCheck(
 		z_stream strm) {
 			inflate_state state;
